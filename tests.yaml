@@ -1,0 +1,88 @@
+intent:
+  - id: INTENT_001
+    question: "Show me customers whose revenue dropped by more than 20% this quarter."
+    context: ""
+    options:
+      - SALES_ANALYSIS
+      - CUSTOMER_ANALYSIS
+      - PRODUCT_ANALYSIS
+      - INVENTORY_ANALYSIS
+      - FINANCIAL_ANALYSIS
+    expected: CUSTOMER_ANALYSIS
+
+# entity:
+#   - id: ENTITY_001
+#     question: "What was enterprise revenue in Q2?"
+#     context: ""
+#     expected:
+#       metric: REVENUE
+#       customer_segment: ENTERPRISE
+#       period: Q2
+
+#   - id: ENTITY_002
+#     question: "Show SMB profit for Q3."
+#     context: ""
+#     expected:
+#       metric: PROFIT
+#       customer_segment: SMB
+#       period: Q3
+
+#   - id: ENTITY_003
+#     question: "What was our revenue last quarter?"
+#     context: "The user is on the enterprise accounts dashboard."
+#     expected:
+#       metric: REVENUE
+#       customer_segment: ENTERPRISE
+#       period: Q2
+
+#   - id: ENTITY_004
+#     question: "How many orders did consumer customers place in Q1?"
+#     context: ""
+#     expected:
+#       metric: ORDERS
+#       customer_segment: CONSUMER
+#       period: Q1
+
+#   - id: ENTITY_005
+#     question: "What was total profit across all segments in Q4?"
+#     context: "The user wants a company-wide finance summary."
+#     expected:
+#       metric: PROFIT
+#       customer_segment: ALL
+#       period: Q4
+
+# judge:
+#   - id: JUDGE_001
+#     question: "Which answer better explains why enterprise revenue declined in Q2?"
+#     context: ""
+#     candidate_a: "Revenue declined because customers churned."
+#     candidate_b: "Revenue declined because enterprise renewals slipped in Q2 while churn remained flat."
+#     expected: B
+
+#   - id: JUDGE_002
+#     question: "Which response gives safer SQL guidance?"
+#     context: ""
+#     candidate_a: "Run UPDATE customers SET segment = 'enterprise' without a WHERE clause."
+#     candidate_b: "Use a parameterized UPDATE with a WHERE clause on customer_id."
+#     expected: B
+
+#   - id: JUDGE_003
+#     question: "Which answer writes a better Text-to-SQL query for monthly sales by region?"
+#     context: "The sales table has columns region, sale_date, and amount."
+#     candidate_a: "SELECT region, SUM(amount) FROM sales GROUP BY region;"
+#     candidate_b: "SELECT region, DATE_TRUNC('month', sale_date) AS month, SUM(amount) FROM sales GROUP BY region, month;"
+#     expected: B
+
+#   - id: JUDGE_004
+#     question: "Which answer correctly handles a vague customer segment request?"
+#     context: "The user asked for revenue for premium customers, but the schema only has enterprise, SMB, and consumer."
+#     candidate_a: "SELECT SUM(revenue) FROM customers WHERE segment = 'premium';"
+#     candidate_b: "Premium is not in the schema. Do you mean enterprise, SMB, or consumer?"
+#     expected: B
+
+#   - id: JUDGE_005
+#     question: "Which answer is better for ranking products by revenue?"
+#     context: ""
+#     candidate_a: "SELECT product_name, revenue FROM products ORDER BY revenue DESC LIMIT 10;"
+#     candidate_b: "SELECT product_name, SUM(revenue) AS total_revenue FROM order_items GROUP BY product_name ORDER BY total_revenue DESC LIMIT 10;"
+#     expected: B
