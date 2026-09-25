@@ -28,8 +28,7 @@ models:
           content: Respond with valid JSON only. Do not include markdown or explanation.
         - role: user
           content: "{{prompt}}"
-      temperature: 0
-      max_tokens: 256
+      max_completion_tokens: 256
     response_path: choices.0.message.content
     input_tokens_path: usage.prompt_tokens
     output_tokens_path: usage.completion_tokens

@@ -310,6 +310,23 @@ def coerce_int(value: Any) -> int | None:
     return None
 
 
+def extract_http_error(response: httpx.Response) -> str:
+    try:
+        payload = response.json()
+        if isinstance(payload, dict):
+            error_obj = payload.get("error")
+            if isinstance(error_obj, dict) and error_obj.get("message"):
+                return str(error_obj["message"])
+            if isinstance(error_obj, str):
+                return error_obj
+    except json.JSONDecodeError:
+        pass
+
+    if response.text:
+        return response.text[:500]
+    return "Unknown error"
+
+
 def call_model(
     model_name: str,
     model_cfg: dict,
@@ -385,7 +402,8 @@ def call_model(
 
     error = None
     if response.status_code >= 400:
-        error = sanitize_error(f"HTTP {response.status_code}", api_key)
+        detail = extract_http_error(response)
+        error = sanitize_error(f"HTTP {response.status_code}: {detail}", api_key)
     elif parsed is None:
         error = "Could not parse model response"
 
